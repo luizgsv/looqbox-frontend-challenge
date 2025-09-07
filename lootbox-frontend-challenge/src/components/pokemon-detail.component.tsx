@@ -1,39 +1,31 @@
 import { CloseOutlined, SwapOutlined } from '@ant-design/icons';
-import { Button, Progress, Spin, Tooltip } from 'antd';
+import { Button, Progress, Tooltip } from 'antd';
 import { useState } from 'react';
-import { useDetailsPokemonByName as detailsPokemonByName } from '../hooks/queries/details-pokemon';
 import { typeColors } from '../models/consts/pokemon-type-color';
 import { usePokemonStore } from '../models/zustand/pokemon.store';
 import { ComparePokemonModal } from './compare-pokemon.component';
+import type { PokemonDetailProps } from '../models/types/pokemon-detail.type';
 
 type Props = {
   selectedName: string | null;
   isMainComponent: boolean;
+  pokemon: PokemonDetailProps | undefined;
 };
 
-export function PokemonDetail({ selectedName, isMainComponent }: Props) {
+export function PokemonDetail({ selectedName, isMainComponent, pokemon }: Props) {
   const [compareOpen, setCompareOpen] = useState(false);
 
   const { setPokemon, setPokemonFromCompare } = usePokemonStore();
 
-  const { data: response, isLoading } = detailsPokemonByName({
-    searchName: selectedName,
-    isOpen: !!selectedName,
-  });
-
   if (!selectedName) return null;
 
-  const mainType = response?.types[0]?.type.name || 'normal';
+  const mainType = pokemon?.types[0]?.type.name || 'normal';
   const bgColor = typeColors[mainType] || '#A8A878';
 
-  if (isLoading) {
-    return <Spin size="large" />;
-  }
-
-  if (!response) return;
+  if (!pokemon) return;
 
   return (
-    <div className="flex flex-col items-center w-60 h-fit md:w-80 lg:w-96 min-w-64 max-w-md rounded-lg shadow-lg overflow-hidden">
+    <div className="flex flex-col items-center w-60 h-fit md:w-80 lg:w-80 max-w-md rounded-lg shadow-lg overflow-hidden">
       <div
         className="flex flex-col gap-4 items-center w-full p-4 relative"
         style={{ backgroundColor: bgColor }}
@@ -53,7 +45,7 @@ export function PokemonDetail({ selectedName, isMainComponent }: Props) {
             </Tooltip>
           )}
           <h2 className="text-xl sm:text-2xl font-bold capitalize text-white text-center flex-1">
-            #{response.id} {response.name}
+            #{pokemon.id} {pokemon.name}
           </h2>
           {isMainComponent && (
             <Tooltip title="Comparar pokémon">
@@ -70,17 +62,17 @@ export function PokemonDetail({ selectedName, isMainComponent }: Props) {
         <div className="w-32 sm:w-48 h-28 sm:h-40">
           <img
             src={
-              response.sprites.other?.['official-artwork']?.front_default ||
-              response.sprites.front_default ||
+              pokemon.sprites.other?.['official-artwork']?.front_default ||
+              pokemon.sprites.front_default ||
               ''
             }
-            alt={response.name}
+            alt={pokemon.name}
             className="w-full h-full object-contain rounded-lg"
           />
         </div>
 
         <div className="flex gap-2 flex-wrap justify-center">
-          {response.types.map((t) => (
+          {pokemon.types.map((t) => (
             <span
               key={t.type.name}
               className="px-2 py-1 text-xs sm:text-sm rounded-full font-medium bg-white/20 text-white"
@@ -99,7 +91,7 @@ export function PokemonDetail({ selectedName, isMainComponent }: Props) {
         md:h-[18rem]                
       "
       >
-        {response.stats.map((s) => (
+        {pokemon.stats.map((s) => (
           <div key={s.stat.name} className="flex flex-col mb-3">
             <div className="flex justify-between text-xs sm:text-sm capitalize mb-1">
               <span>{s.stat.name}</span>
@@ -115,8 +107,8 @@ export function PokemonDetail({ selectedName, isMainComponent }: Props) {
         ))}
 
         <div className="flex justify-between text-xs sm:text-sm mt-2">
-          <strong>Altura: {(response.height / 10).toFixed(1)} m</strong>
-          <strong>Peso: {(response.weight / 10).toFixed(1)} kg</strong>
+          <strong>Altura: {(pokemon.height / 10).toFixed(1)} m</strong>
+          <strong>Peso: {(pokemon.weight / 10).toFixed(1)} kg</strong>
         </div>
       </div>
 

@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import type { PokemonListItemFormatted } from '../../hooks/queries/list-pokemon.query';
+import type { PokemonListResponseProps } from '../types/pokemon-list';
 
 type StateProps = {
-  litsPokemon: Array<PokemonListItemFormatted>;
+  litsPokemon: Array<PokemonListResponseProps['results'][0]>;
   pokemon: string | null;
   pokemonFromCompare: string | null;
 };

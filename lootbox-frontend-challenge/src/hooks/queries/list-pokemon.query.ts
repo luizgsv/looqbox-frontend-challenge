@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import type { PokemonListResponseProps } from '../../models/types/pokemon-list';
 import { listPokemonService } from '../../services/list-pokemon.service';
 import { setImagePokemon } from '../image-pokemon';
 
@@ -10,26 +11,13 @@ type Props = {
   };
 };
 
-export interface PokemonListItemFormatted {
-  name: string;
-  url: string;
-  image: string;
-}
-
-export interface PokemonListResponseFormatted {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: PokemonListItemFormatted[];
-}
-
 export const useListPokemon = ({ limit, offset, filter }: Props) => {
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ['list-pokemon', offset, limit, filter],
     queryFn: async () => {
       const response = await listPokemonService({ limit, offset });
 
-      const formatted: PokemonListResponseFormatted = {
+      const formatted: PokemonListResponseProps = {
         ...response,
         results: response.results
           .map(({ url, name }) => ({
