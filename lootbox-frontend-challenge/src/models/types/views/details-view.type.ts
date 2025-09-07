@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
-import type { DeviceType } from '../hooks/device.type';
+import type { DeviceType } from '../device.type';
 import type { PokemonDetailProps } from '../pokemon-detail.type';
 
 /**

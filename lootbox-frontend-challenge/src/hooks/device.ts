@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { DeviceType } from '../models/types/hooks/device.type';
+import type { DeviceType } from '../models/types/device.type';
 
 export function useDevice(): DeviceType {
   const [device, setDevice] = useState<DeviceType>('desktop');
