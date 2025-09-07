@@ -1,69 +1,135 @@
-# React + TypeScript + Vite
+# 🎮 Lootbox Frontend Challenge - Pokédex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação frontend que consome a [PokéAPI](https://pokeapi.co/) para exibir uma **listagem de Pokémons**, permitir **buscas inteligentes** e mostrar a **comparação detalhada entre dois Pokémons** com direito a gráficos interativos.
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Listagem de Pokémons**
+  - Carrega **50 pokémons por vez** com botão _"Carregar mais"_.
+  - Header com **campo de busca**:
+    - Pesquisa em cima dos dados já carregados.
+    - Pesquisa diretamente na API e adiciona os resultados à listagem.
 
-## Expanding the ESLint configuration
+- **Detalhes do Pokémon**
+  - Ao clicar em um card, abre a página de detalhes.
+  - Mostra:
+    - Tipos do Pokémon.
+    - Estatísticas base (ataque, defesa, velocidade etc.).
+    - Altura e peso.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Comparação de Pokémons**
+  - Botão para selecionar outro Pokémon para comparar.
+  - Exibição lado a lado dos dois cards.
+  - **Gráfico radar interativo** para comparar atributos (ataque, defesa etc.).
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tecnologias
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Esse projeto foi criado com **Vite + React + TypeScript** e utiliza:
+
+- [**Ant Design**](https://ant.design/) - UI Components.
+- [**Ant Design Icons**](https://ant.design/components/icon/) - Ícones.
+- [**TailwindCSS**](https://tailwindcss.com/) - Estilização responsiva.
+- [**TanStack React Query**](https://tanstack.com/query/latest) - Gerenciamento de estado assíncrono e cache de requisições.
+- [**Axios**](https://axios-http.com/) - Cliente HTTP.
+- [**Zustand**](https://zustand-demo.pmnd.rs/) - Gerenciamento de estado global.
+- [**React Router DOM**](https://reactrouter.com/) - Rotas da aplicação.
+- [**Recharts**](https://recharts.org/) - Gráficos (usado no radar de comparação).
+
+---
+
+## 📂 Estrutura de Pastas
+
+```bash
+src/
+ ├── assets/              # Imagens e arquivos estáticos
+ ├── components/          # Componentes reutilizáveis
+ ├── hooks/               # Hooks customizados
+ │   ├── models/          # Hooks personalizados - models do MVVM
+ │   ├── queries/         # Lógica de busca (API via React Query)
+ │   ├── device.ts        # Hook para detectar dispositivo
+ │   ├── debounce.ts      # Hook de debounce
+ │   └── image-pokemon.ts # Utilidades relacionadas a imagens
+ ├── lib/                 # Configurações globais (axios, query client)
+ ├── models/              # Agrupamento de constantes, tipagens e stores globais
+ │   ├── consts/          # Constantes (ex: cores por tipo)
+ │   ├── types/           # Tipagens (TS)
+ │   │   ├── view/        # Contrato de MVVM (TS)
+ │   │   └── .ts          # Tipagens (TS)
+ │   └── zustand/         # Store global
+ ├── pages/               # Views principais (Home, Details etc.)
+ ├── providers/           # Providers globais (React Query, Zustand etc.)
+ ├── routes/              # Configuração das rotas
+ ├── services/            # Serviços externos (API, integração)
+ ├── styles/              # Estilos globais
+ ├── views/               # Views MVVM
+ ├── App.tsx              # App principal
+ └── main.tsx             # Entry point
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Como rodar o projeto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Clonar repositório
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+  git clone https://github.com/luizgsv/lootbox-frontend-challenge.git
+  cd lootbox-frontend-challenge
 ```
+
+2. Instalar dependências
+
+```bash
+  pnpm install
+  # ou npm install
+  # ou yarn install
+```
+
+3. Configurar variáveis de ambiente
+   Crie um arquivo .env na raiz e adicione:
+
+```bash
+  VITE_API_URL=https://pokeapi.co/api/v2
+```
+
+4. Rodar em desenvolvimento
+
+```bash
+  pnpm dev
+```
+
+5. Build para produção
+
+```bash
+  pnpm build
+```
+
+6. Preview do build
+
+```bash
+  pnpm preview
+```
+
+## 📸 Screenshots
+
+## 📐 Arquitetura (MVVM)
+
+O projeto segue o padrão MVVM (Model–View–ViewModel), que organiza a aplicação em três camadas principais:
+
+- Model: Responsável pela lógica de dados: definição de estruturas (tipos), regras de negócio, stores globais e constantes.
+
+  Exemplo: models/types/, models/consts/, models/zustand/.
+
+- View: Camada de interface com o usuário. Só se preocupa em exibir dados e reagir a interações.
+
+  Exemplo: páginas em pages/ e visões/componentes em views/ e components/.
+
+- ViewModel: Faz a ponte entre Model e View. É onde fica a lógica de apresentação: buscar dados na API, transformar informação, manipular estado e entregar já pronto para a View renderizar.
+
+  Exemplo: hooks/ (queries com React Query, Zustand e outros hooks customizados).
+
+🔗 Essa separação ajuda a manter o código modular, testável e de fácil manutenção, evitando que a View (UI) se confunda com a lógica de negócio.
+
+## 👨‍💻Autor
+
+Desenvolvido por [Luiz Gustavo](https://www.linkedin.com/in/luiz-vargas/).
