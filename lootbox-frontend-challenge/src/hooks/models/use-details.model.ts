@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import type { DetailsViewProps } from '../../models/types/views/details-view.type';
 import { usePokemonStore } from '../../models/zustand/pokemon.store';
 import { useDevice } from '../device';
@@ -7,6 +7,7 @@ import { useDetailsPokemonByName as detailsPokemonByName } from '../queries/deta
 
 export const useDetailModel = (): DetailsViewProps => {
   const params = useParams();
+  const navigate = useNavigate();
   const name = params.pokemon as string;
 
   const { pokemonFromCompare } = usePokemonStore();
@@ -32,5 +33,6 @@ export const useDetailModel = (): DetailsViewProps => {
     setOpenModal,
     name,
     pokemonFromCompare,
+    navigate,
   };
 };

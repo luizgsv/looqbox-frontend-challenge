@@ -1,5 +1,7 @@
-import { create } from 'zustand';
+import { create, type StoreApi, type UseBoundStore } from 'zustand';
 import type { PokemonListResponseProps } from '../types/pokemon-list';
+
+export type usePokemonStoreProps = UseBoundStore<StoreApi<StateProps & ActionProps>>;
 
 type StateProps = {
   litsPokemon: Array<PokemonListResponseProps['results'][0]>;

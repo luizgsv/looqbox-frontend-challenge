@@ -1,3 +1,5 @@
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
 import { ComparePokemonModal } from '../components/compare-pokemon.component';
 import ComparisonChart from '../components/graphic-comparison-pokemon.component';
 import { PokemonDetail } from '../components/pokemon-detail.component';
@@ -12,6 +14,7 @@ export function DetailsView(props: DetailsViewProps) {
     pokemonFromCompare,
     secondaryPokemon,
     setOpenModal,
+    navigate,
   } = props;
 
   return (
@@ -51,6 +54,11 @@ export function DetailsView(props: DetailsViewProps) {
 
         <ComparePokemonModal open={openModal} onClose={() => setOpenModal(false)} />
       </section>
+      <FloatButton
+        tooltip="Voltar para página principal"
+        icon={<ArrowLeftOutlined />}
+        onClick={() => navigate('/')}
+      />
     </main>
   );
 }

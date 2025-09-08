@@ -2,6 +2,8 @@
 
 Uma aplicação frontend que consome a [PokéAPI](https://pokeapi.co/) para exibir uma **listagem de Pokémons**, permitir **buscas inteligentes** e mostrar a **comparação detalhada entre dois Pokémons** com direito a gráficos interativos.
 
+[Veja o vídeo do app](/src/assets/players/apresentacao.mp4)
+
 ## 🚀 Funcionalidades
 
 - **Listagem de Pokémons**
@@ -63,10 +65,44 @@ src/
  ├── routes/              # Configuração das rotas
  ├── services/            # Serviços externos (API, integração)
  ├── styles/              # Estilos globais
+ ├── tests/               # Testes com Vitest
  ├── views/               # Views MVVM
  ├── App.tsx              # App principal
  └── main.tsx             # Entry point
 ```
+
+## 🧪 Testes
+
+O projeto possui uma pasta tests/ na raiz onde ficam os testes unitários dos hooks, stores e componentes.
+
+- 🛠️ Bibliotecas usadas para testes
+
+  Vitest
+  – Framework de testes unitários moderno para Vite.
+
+  @testing-library/react
+  – Facilita testar componentes React de forma próxima à interação real do usuário.
+
+  @testing-library/react-hooks
+  – Permite testar hooks isoladamente.
+
+  jsdom
+  – Simula o DOM no Node.js para testes de componentes React.
+
+- 🚀 Rodando os testes
+
+```bash
+# Rodar todos os testes uma vez
+pnpm test
+
+# Rodar em modo watch (recarrega ao salvar alterações)
+pnpm test:watch
+
+```
+
+Scripts disponíveis no package.json:
+
+---
 
 ## ⚙️ Como rodar o projeto
 
